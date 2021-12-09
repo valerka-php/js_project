@@ -1,0 +1,45 @@
+.container {
+    user-select: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 4px;
+    background-color: gainsboro;
+    padding: 4px;
+    max-width: 300px;
+}
+
+.values{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: darkgrey ;
+    font-weight: bold;
+}
+
+.out{
+    border: none;
+    height: 60px;
+    outline: none;
+    background-color: white;
+    grid-column: 1 / 5;
+    font-size: 35px;
+    max-width: 260px;
+    min-width: 260px;
+    min-height: 85px;
+}
+
+.plus{
+    grid-column: 4;
+    grid-row: 5 / 7;
+}
+
+.clean{
+    background-color: darkgoldenrod;
+}
+
+.back{
+    background-color: darkorange;
+}
+
