@@ -1,0 +1,14 @@
+
+td{
+    color: darkgreen;
+    border: 3px solid black;
+    display: flex;
+    border-radius: 15px;
+    justify-content: center;
+}
+
+
+h1 {
+    text-align: center;
+    color: goldenrod;
+}
