@@ -7,16 +7,31 @@
 </head>
 <body>
 
-<h1 id="h1"> Game </h1>
+<div>
+    <h1> Game </h1>
+    <h1 class="timer"> 60 </h1>
 
-<table>
-    <tr>
-        <td id="td_1">first</td>
-        <td id="td_2"> second</td>
-        <td id="td_3">tird</td>
-        <td id="td_4">fourd</td>
-    </tr>
-</table>
+</div>
+
+<div>
+    <h1 class="question"> Вы готовы ? </h1>
+
+<!--    <div class="answer1" onclick="answer()"> 1 </div>-->
+<!--    <div class="answer2" onclick="answer()"> 2 </div>-->
+<!--    <div class="answer3" onclick="answer()"> 3 </div>-->
+<!--    <div class="answer4" onclick="answer()"> 4 </div>-->
+    <table>
+        <tr>
+            <td class="answer1" onclick="answer('1')" >A</td>
+            <td class="answer2" onclick="answer('2')">B</td>
+            <td class="answer3" onclick="answer('3')">C</td>
+            <td class="answer4" onclick="answer('4')">D</td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="start" onclick="start()"> Start</div>
 
 
 <script src="main.js"></script>

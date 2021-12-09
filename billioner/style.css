@@ -1,14 +1,40 @@
-
 td{
     color: darkgreen;
     border: 3px solid black;
     display: flex;
     border-radius: 15px;
     justify-content: center;
+    user-select: none;
+    cursor: pointer;
 }
 
+table{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 75px;
+}
 
 h1 {
     text-align: center;
     color: goldenrod;
 }
+
+.start,.timer{
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    color: green;
+    background-color: gainsboro;
+    user-select: none;
+    border: 4px solid black;
+    display: flex;
+    border-radius: 35px;
+    justify-content: center;
+    width: 150px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+
