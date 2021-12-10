@@ -1,25 +1,40 @@
-td{
-    color: darkgreen;
-    border: 3px solid black;
-    display: flex;
-    border-radius: 15px;
-    justify-content: center;
-    user-select: none;
-    cursor: pointer;
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: whitesmoke;
 }
 
-table{
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 75px;
+.head{
+    grid-column: 2;
+    background-color: grey;
 }
+
+.center{
+    width: 950px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 2;
+    grid-row: 2 / 3;
+    background-color: darkgrey;
+}
+
+td{
+    border: 4px solid grey;
+    text-align: center;
+
+}
+
+.money{
+    background-color: darkorange;
+}
+
 
 h1 {
     text-align: center;
     color: goldenrod;
 }
 
-.start,.timer{
+.timer{
     text-align: center;
     font-weight: bold;
     font-size: 50px;
@@ -34,7 +49,58 @@ h1 {
     cursor: pointer;
     margin-left: auto;
     margin-right: auto;
+}
 
+.start{
+    grid-column: 2;
+    grid-row: 3 / 4;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    color: green;
+    background-color: yellowgreen;
+    user-select: none;
+    border: 4px solid black;
+    display: flex;
+    border-radius: 35px;
+    justify-content: center;
+    width: 255px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
+.answer1,.answer2,.answer3,.answer4{
+    background-color: darkorange;
+    border-radius: 15px;
+    margin: 15px;
+    height: 35px;
+
+}
+
+.answer{
+    grid-row: 2;
+    text-align: center;
+    background-color: lightgoldenrodyellow;
+}
+
+.table{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    grid-row: 2 / 3;
+    width: 175px;
+    background-color: whitesmoke;
+    text-align: center;
+    padding: 5px;
+    border: 4px solid black;
+}
+
+.nums{
+    width: 40px;
+
+}
+
+.question {
+   color: black;
+}
