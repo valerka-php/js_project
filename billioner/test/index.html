@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<a onclick="start(this);">Start</a>
+
+
+<script>
+    let i = 0;
+    function start(d){
+        if (d.interval){
+            clearInterval(d.interval);
+            d.innerHTML='Start';
+        } else {
+            d.interval=setInterval(function(){
+                // refresh here
+                console.log(i++);
+            },1000);
+
+            d.innerHTML='Stop';
+        }
+    }
+
+</script>
+</body>
+</html>

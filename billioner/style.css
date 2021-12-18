@@ -1,3 +1,65 @@
+.help{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column: 3;
+    grid-row: 2 / 3;
+    background-color: navajowhite;
+}
+
+.callFriend{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 2;
+    grid-row: 1 / 2;
+    background-color: hotpink;
+    cursor: pointer;
+}
+
+.fifty{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 2;
+    grid-row: 2 / 3;
+    background-color: khaki;
+    cursor: pointer;
+}
+
+.peopleHelp{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 2;
+    grid-row: 3 / 4;
+    background-color: olive;
+    cursor: pointer;
+}
+
+.getAnswer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column: 2;
+    grid-row: 4 / 5;
+    background-color: tomato;
+    cursor: pointer;
+}
+
+.win{
+    grid-column: 3;
+    grid-row: 3 / 4;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    color: green;
+    background-color: yellowgreen;
+    user-select: none;
+    display: flex;
+    border-radius: 35px;
+    justify-content: center;
+    width: 255px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -41,7 +103,6 @@ h1 {
     color: green;
     background-color: gainsboro;
     user-select: none;
-    border: 4px solid black;
     display: flex;
     border-radius: 35px;
     justify-content: center;
@@ -72,10 +133,10 @@ h1 {
 
 
 .answer1,.answer2,.answer3,.answer4{
-    background-color: darkorange;
     border-radius: 15px;
     margin: 15px;
     height: 35px;
+    cursor: pointer;
 
 }
 

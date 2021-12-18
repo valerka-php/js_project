@@ -34,7 +34,8 @@ const currentAnswer = ['под ёлкой', 'кулебяка', 'по одёжк
     'Операция «Арго»', '«Княгиня Лиговская»', 'спички', 'в Новгороде', 'дверного проёма', 'дирижёрская трость', 'ловить рыбу']
 
 let count = 0;
-let countAnswer = 0;
+let answer = 14;
+let win;
 
 // const answers = [
 //      ['под ёлкой','под палкой','под скалкой','под мухой']
@@ -48,9 +49,7 @@ let countAnswer = 0;
 
 
 function checkAnswer(val) {
-
     let value;
-
     switch (val) {
         case 1:
             value = document.querySelector('.answer1').innerHTML;
@@ -68,40 +67,62 @@ function checkAnswer(val) {
 
     // console.log(typeof(value));
     // console.log(count);
+    // console.log(value);
+    if (value === currentAnswer[count]) {
+        if (currentAnswer[count] !== 'ловить рыбу'){
+            count++;
+            document.querySelector('.timer').innerHTML = '30';
+            document.querySelector('.question').innerHTML = questions[count];
 
-    if (value) {
-        for (let key of currentAnswer) {
-            if (value === key) {
-                // console.log('DA')
-                count++;
-                document.querySelector('.timer').innerHTML = 15;
-                document.querySelector('.question').innerHTML = questions[count];
+            document.querySelector('.answer1').innerHTML = asnwers[count][0];
+            document.querySelector('.answer2').innerHTML = asnwers[count][1];
+            document.querySelector('.answer3').innerHTML = asnwers[count][2];
+            document.querySelector('.answer4').innerHTML = asnwers[count][3];
 
-                document.querySelector('.answer1').innerHTML = asnwers[count][0];
-                document.querySelector('.answer2').innerHTML = asnwers[count][1];
-                document.querySelector('.answer3').innerHTML = asnwers[count][2];
-                document.querySelector('.answer4').innerHTML = asnwers[count][3];
-
-                let elem = document.querySelector('.qwe')
-                console.log(elem);
-                elem.style.backgroundColor = 'green';
-                break;
-            }else {
-                document.querySelector('.start').innerHTML = 'Сыграть еще';
-                document.querySelector('.timer').innerHTML = '';
-
-                clearInterval(setTimer);
-            }
+            let parent1 = document.querySelector('.answerTable1');
+            let parent2 = document.querySelector('.answerTable2');
+            let elems1 = parent1.children;
+            let elems2 = parent2.children;
+            elems1[answer-count].style.backgroundColor = 'green';
+            elems2[answer-count].style.backgroundColor = 'green';
+            // console.log(value);
+        }else {
+            document.querySelector('.question').innerHTML = 'Ты выиграл =)';
+            document.querySelector('.win').innerHTML = 'Забрать приз !';
+            document.querySelector('.timer').innerHTML = '';
+            document.querySelector('.answer1').innerHTML = '';
+            document.querySelector('.answer2').innerHTML = '';
+            document.querySelector('.answer3').innerHTML = '';
+            document.querySelector('.answer4').innerHTML = '';
+            document.querySelector('.start').innerHTML = '';
         }
-        // console.log(value);
+        // console.log('DA')
+        // console.log(count);
+
+    }else {
+        document.querySelector('.question').innerHTML = 'Ууупс ты проиграл =/';
+        document.querySelector('.start').innerHTML = 'Сыграть еще';
+        document.querySelector('.timer').innerHTML = '';
+        document.querySelector('.answer1').innerHTML = '';
+        document.querySelector('.answer2').innerHTML = '';
+        document.querySelector('.answer3').innerHTML = '';
+        document.querySelector('.answer4').innerHTML = '';
+
+        document.querySelector('.timer').innerHTML = '';
+        clearInterval(setTimer);
+        count = 0;
 
     }
+}
+
+function callFriend(){
+
 }
 
 
 
 function setStart() {
-    document.querySelector('.timer').innerHTML = 15;
+    document.querySelector('.timer').innerHTML = 30;
     document.querySelector('.start').innerHTML = 'Start';
 
     document.querySelector('.question').innerHTML = questions[count];
@@ -110,12 +131,11 @@ function setStart() {
     document.querySelector('.answer3').innerHTML = asnwers[count][2];
     document.querySelector('.answer4').innerHTML = asnwers[count][3];
 
-    setInterval(setTimer, 1000);
 }
 
+setInterval(setTimer, 1000);
 function setTimer() {
     let count = +document.querySelector('.timer').textContent;
-
     if (count >= 1) {
         count--;
         document.querySelector('.timer').innerHTML = count;
