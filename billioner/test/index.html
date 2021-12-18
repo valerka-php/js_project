@@ -3,28 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .qwe{
+
+        }
+    </style>
 </head>
 <body>
 
-<a onclick="start(this);">Start</a>
+<div class="parent">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+</div>
 
 
 <script>
-    let i = 0;
-    function start(d){
-        if (d.interval){
-            clearInterval(d.interval);
-            d.innerHTML='Start';
-        } else {
-            d.interval=setInterval(function(){
-                // refresh here
-                console.log(i++);
-            },1000);
-
-            d.innerHTML='Stop';
-        }
+    var children = document.querySelector('.parent').children;
+    var i;
+    for (i = 0; i < children.length; i++) {
+        children[i].style.visibility = "visible";
     }
-
 </script>
 </body>
 </html>

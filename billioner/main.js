@@ -35,17 +35,10 @@ const currentAnswer = ['под ёлкой', 'кулебяка', 'по одёжк
 
 let count = 0;
 let answer = 14;
-let win;
+let win = 0;
 
-// const answers = [
-//      ['под ёлкой','под палкой','под скалкой','под мухой']
-// ]
-// console.log(answers[0]);
-
-// function question(count){
-//     document.querySelector('.question').innerHTML = questions[count];
-// }
-// question(0);
+const parent1 = document.querySelector('.answerTable1').children;
+const parent2 = document.querySelector('.answerTable2').children;
 
 
 function checkAnswer(val) {
@@ -70,7 +63,22 @@ function checkAnswer(val) {
     // console.log(value);
     if (value === currentAnswer[count]) {
         if (currentAnswer[count] !== 'ловить рыбу'){
+
+            let children = document.querySelector('.answer').children;
+            let i;
+            for (i = 0; i < children.length; i++) {
+                children[i].style.visibility = "visible";
+                children[i].style.backgroundColor = "white";
+            }
+
+            if (count === 4){
+                win = 5000;
+            }else if(count === 9) {
+                win = 100000;
+            }
+
             count++;
+            // console.log(count);
             document.querySelector('.timer').innerHTML = '30';
             document.querySelector('.question').innerHTML = questions[count];
 
@@ -79,12 +87,9 @@ function checkAnswer(val) {
             document.querySelector('.answer3').innerHTML = asnwers[count][2];
             document.querySelector('.answer4').innerHTML = asnwers[count][3];
 
-            let parent1 = document.querySelector('.answerTable1');
-            let parent2 = document.querySelector('.answerTable2');
-            let elems1 = parent1.children;
-            let elems2 = parent2.children;
-            elems1[answer-count].style.backgroundColor = 'green';
-            elems2[answer-count].style.backgroundColor = 'green';
+
+            parent1[answer-count].style.backgroundColor = 'green';
+            parent2[answer-count].style.backgroundColor = 'green';
             // console.log(value);
         }else {
             document.querySelector('.question').innerHTML = 'Ты выиграл =)';
@@ -96,11 +101,20 @@ function checkAnswer(val) {
             document.querySelector('.answer4').innerHTML = '';
             document.querySelector('.start').innerHTML = '';
         }
-        // console.log('DA')
         // console.log(count);
-
     }else {
-        document.querySelector('.question').innerHTML = 'Ууупс ты проиграл =/';
+        for (i = 13; i > 0; i--){
+            // console.log(i);
+            if (i === 4 || i === 9 ){
+                parent1[i].style.backgroundColor = 'darkorange';
+                parent2[i].style.backgroundColor = 'darkorange';
+            }else {
+                parent1[i].style.backgroundColor = 'white';
+                parent2[i].style.backgroundColor = 'white';
+            }
+        }
+
+        document.querySelector('.question').innerHTML = 'Ууупс ты проиграл =/ и твой выиграш ' + win;
         document.querySelector('.start').innerHTML = 'Сыграть еще';
         document.querySelector('.timer').innerHTML = '';
         document.querySelector('.answer1').innerHTML = '';
@@ -108,14 +122,75 @@ function checkAnswer(val) {
         document.querySelector('.answer3').innerHTML = '';
         document.querySelector('.answer4').innerHTML = '';
 
+
         document.querySelector('.timer').innerHTML = '';
         clearInterval(setTimer);
         count = 0;
-
     }
 }
 
+
+
+
 function callFriend(){
+    let answer = document.querySelector('.answer');
+    let num = Math.floor(Math.random() * 4);
+
+    // console.log(num);
+    answer.children[num].style.backgroundColor = 'yellow';
+    document.querySelector('.callFriend').style.display = 'none';
+}
+function fiftyFifty(){
+    let correctAnswerNum;
+    let text = document.querySelector('.answer').children;
+    for (i = 0; i < 4; i++){
+        let checkText = text[i].textContent
+        // console.log(ty)
+        for(value of currentAnswer){
+            if (checkText === value){
+                correctAnswerNum = i;
+            }
+        }
+    }
+
+    let num1;
+    let num2;
+
+    while (num1 === undefined && num2 === undefined){
+        let randNum1 = Math.floor(Math.random() * 4);
+        let randNum2 = Math.floor(Math.random() * 4);
+        if (randNum1 !== randNum2){
+            if (randNum1 !== correctAnswerNum && randNum2 !== correctAnswerNum ){
+               num1 = randNum1;
+               num2 = randNum2;
+            }
+        }
+    }
+
+    // console.log(correctAnswer);
+    console.log(num1);
+    console.log(num2);
+
+    // element.style.visibility = 'hidden';      // Hide
+    // element.style.visibility = 'visible';     // Show
+    let tableAnswer = document.querySelector('.answer');
+
+    tableAnswer.children[num1].style.visibility = 'hidden';
+    tableAnswer.children[num2].style.visibility = 'hidden';
+    document.querySelector('.fifty').style.display = 'none';
+}
+
+function getCorrectAnswer(){
+    let text = document.querySelector('.answer').children;
+    for (i = 0; i < 4; i++){
+        let checkText = text[i].textContent
+        // console.log(ty)
+        for(value of currentAnswer){
+            if (checkText === value){
+                document.querySelector('.answer').children[i].style.backgroundColor = 'yellow';
+            }
+        }
+    }
 
 }
 
@@ -123,6 +198,7 @@ function callFriend(){
 
 function setStart() {
     document.querySelector('.timer').innerHTML = 30;
+
     document.querySelector('.start').innerHTML = 'Start';
 
     document.querySelector('.question').innerHTML = questions[count];

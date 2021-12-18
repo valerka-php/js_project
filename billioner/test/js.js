@@ -1,6 +1,8 @@
 let parent = document.querySelector('#parent');
 let elems = parent.children;
 
+
+
 console.log(elems[1]);
 elems[0].style.backgroundColor = 'green';
 
