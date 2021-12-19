@@ -37,9 +37,86 @@ let count = 0;
 let answer = 14;
 let win = 0;
 
+let stop = false;
+
+document.querySelector('.answer').style.visibility = "hidden";
+document.querySelector('.table').style.visibility = "hidden";
+document.querySelector('.help').style.visibility = "hidden";
+document.querySelector('.timer').style.visibility = "hidden";
+
+let clearTable = function () {
+    for (i = 13; i > 0; i--) {
+        // console.log(i);
+        if (i === 4 || i === 9) {
+            parent1[i].style.backgroundColor = 'darkorange';
+            parent2[i].style.backgroundColor = 'darkorange';
+        } else {
+            parent1[i].style.backgroundColor = 'white';
+            parent2[i].style.backgroundColor = 'white';
+        }
+    }
+}
+
+let showQuestions = function () {
+    document.querySelector('.timer').innerHTML = '30';
+    document.querySelector('.question').innerHTML = questions[count];
+
+    document.querySelector('.answer1').innerHTML = asnwers[count][0];
+    document.querySelector('.answer2').innerHTML = asnwers[count][1];
+    document.querySelector('.answer3').innerHTML = asnwers[count][2];
+    document.querySelector('.answer4').innerHTML = asnwers[count][3];
+}
+
+let lose = function () {
+    document.querySelector('.table').style.visibility = "hidden";
+    document.querySelector('.start').style.visibility = "visible";
+    document.querySelector('.timer').innerHTML = '';
+
+    let children = document.querySelector('.answer').children;
+    for (i = 0; i < children.length; i++) {
+        children[i].style.visibility = "hidden";
+    }
+
+    // ###############----------------##################
+    let help = document.querySelector('.help').children;
+    for (i = 0; i < help.length; i++) {
+        help[i].style.visibility = "hidden";
+    }
+    //  ###############----------------##################
+}
+
+let visible = function (selector) {
+    document.querySelector('.table').style.visibility = "visible";
+    let children = document.querySelector(selector).children;
+    for (i = 0; i < children.length; i++) {
+        children[i].style.visibility = "visible";
+        children[i].style.backgroundColor = "white";
+    }
+}
+
+let winPrize = function () {
+    document.querySelector('.start').style.visibility = "hidden";
+    document.querySelector('.table').style.visibility = "hidden";
+
+    let help = document.querySelector('.help').children;
+    for (i = 0; i < help.length; i++) {
+        help[i].style.visibility = "hidden";
+    }
+
+    document.querySelector('.question').innerHTML = 'Ты выиграл =^~^=';
+    document.querySelector('.win').innerHTML = 'Забрать приз !';
+    document.querySelector('.timer').innerHTML = '';
+    let children = document.querySelector('.answer').children;
+    for (i = 0; i < children.length; i++) {
+        children[i].style.visibility = "hidden";
+
+    }
+
+}
+
+
 const parent1 = document.querySelector('.answerTable1').children;
 const parent2 = document.querySelector('.answerTable2').children;
-
 
 function checkAnswer(val) {
     let value;
@@ -57,97 +134,58 @@ function checkAnswer(val) {
             value = document.querySelector('.answer4').innerHTML;
             break;
     }
-
     // console.log(typeof(value));
     // console.log(count);
     // console.log(value);
     if (value === currentAnswer[count]) {
-        if (currentAnswer[count] !== 'ловить рыбу'){
+        if (currentAnswer[count] !== 'ловить рыбу') {
 
-            let children = document.querySelector('.answer').children;
-            let i;
-            for (i = 0; i < children.length; i++) {
-                children[i].style.visibility = "visible";
-                children[i].style.backgroundColor = "white";
-            }
-
-            if (count === 4){
+            visible('.answer');
+            if (count === 4) {
                 win = 5000;
-            }else if(count === 9) {
+            } else if (count === 9) {
                 win = 100000;
             }
-
             count++;
             // console.log(count);
-            document.querySelector('.timer').innerHTML = '30';
-            document.querySelector('.question').innerHTML = questions[count];
 
-            document.querySelector('.answer1').innerHTML = asnwers[count][0];
-            document.querySelector('.answer2').innerHTML = asnwers[count][1];
-            document.querySelector('.answer3').innerHTML = asnwers[count][2];
-            document.querySelector('.answer4').innerHTML = asnwers[count][3];
+            showQuestions();
 
-
-            parent1[answer-count].style.backgroundColor = 'green';
-            parent2[answer-count].style.backgroundColor = 'green';
-            // console.log(value);
-        }else {
-            document.querySelector('.question').innerHTML = 'Ты выиграл =)';
-            document.querySelector('.win').innerHTML = 'Забрать приз !';
-            document.querySelector('.timer').innerHTML = '';
-            document.querySelector('.answer1').innerHTML = '';
-            document.querySelector('.answer2').innerHTML = '';
-            document.querySelector('.answer3').innerHTML = '';
-            document.querySelector('.answer4').innerHTML = '';
-            document.querySelector('.start').innerHTML = '';
+            parent1[answer - count].style.backgroundColor = 'green';
+            parent2[answer - count].style.backgroundColor = 'green';
+        } else {
+            winPrize();
+            stop = false;
         }
         // console.log(count);
-    }else {
-        for (i = 13; i > 0; i--){
-            // console.log(i);
-            if (i === 4 || i === 9 ){
-                parent1[i].style.backgroundColor = 'darkorange';
-                parent2[i].style.backgroundColor = 'darkorange';
-            }else {
-                parent1[i].style.backgroundColor = 'white';
-                parent2[i].style.backgroundColor = 'white';
-            }
-        }
+    } else {
 
-        document.querySelector('.question').innerHTML = 'Ууупс ты проиграл =/ и твой выиграш ' + win;
+        clearTable();
+
+        document.querySelector('.question').innerHTML = 'Упсс ты проиграл =/ и твой выигрыш ' + win;
         document.querySelector('.start').innerHTML = 'Сыграть еще';
-        document.querySelector('.timer').innerHTML = '';
-        document.querySelector('.answer1').innerHTML = '';
-        document.querySelector('.answer2').innerHTML = '';
-        document.querySelector('.answer3').innerHTML = '';
-        document.querySelector('.answer4').innerHTML = '';
+        lose();
 
-
-        document.querySelector('.timer').innerHTML = '';
-        clearInterval(setTimer);
         count = 0;
     }
 }
 
-
-
-
-function callFriend(){
+function callFriend() {
     let answer = document.querySelector('.answer');
     let num = Math.floor(Math.random() * 4);
-
     // console.log(num);
     answer.children[num].style.backgroundColor = 'yellow';
-    document.querySelector('.callFriend').style.display = 'none';
+    document.querySelector('.callFriend').style.visibility = 'hidden';
 }
-function fiftyFifty(){
+
+function fiftyFifty() {
     let correctAnswerNum;
     let text = document.querySelector('.answer').children;
-    for (i = 0; i < 4; i++){
+    for (i = 0; i < 4; i++) {
         let checkText = text[i].textContent
         // console.log(ty)
-        for(value of currentAnswer){
-            if (checkText === value){
+        for (value of currentAnswer) {
+            if (checkText === value) {
                 correctAnswerNum = i;
             }
         }
@@ -156,13 +194,13 @@ function fiftyFifty(){
     let num1;
     let num2;
 
-    while (num1 === undefined && num2 === undefined){
+    while (num1 === undefined && num2 === undefined) {
         let randNum1 = Math.floor(Math.random() * 4);
         let randNum2 = Math.floor(Math.random() * 4);
-        if (randNum1 !== randNum2){
-            if (randNum1 !== correctAnswerNum && randNum2 !== correctAnswerNum ){
-               num1 = randNum1;
-               num2 = randNum2;
+        if (randNum1 !== randNum2) {
+            if (randNum1 !== correctAnswerNum && randNum2 !== correctAnswerNum) {
+                num1 = randNum1;
+                num2 = randNum2;
             }
         }
     }
@@ -177,16 +215,16 @@ function fiftyFifty(){
 
     tableAnswer.children[num1].style.visibility = 'hidden';
     tableAnswer.children[num2].style.visibility = 'hidden';
-    document.querySelector('.fifty').style.display = 'none';
+    document.querySelector('.fifty').style.visibility = 'hidden';
 }
 
-function getCorrectAnswer(){
+function getCorrectAnswer() {
     let text = document.querySelector('.answer').children;
-    for (i = 0; i < 4; i++){
+    for (i = 0; i < 4; i++) {
         let checkText = text[i].textContent
         // console.log(ty)
-        for(value of currentAnswer){
-            if (checkText === value){
+        for (value of currentAnswer) {
+            if (checkText === value) {
                 document.querySelector('.answer').children[i].style.backgroundColor = 'yellow';
             }
         }
@@ -194,31 +232,45 @@ function getCorrectAnswer(){
 
 }
 
-
-
-function setStart() {
-    document.querySelector('.timer').innerHTML = 30;
-
-    document.querySelector('.start').innerHTML = 'Start';
-
-    document.querySelector('.question').innerHTML = questions[count];
-    document.querySelector('.answer1').innerHTML = asnwers[count][0];
-    document.querySelector('.answer2').innerHTML = asnwers[count][1];
-    document.querySelector('.answer3').innerHTML = asnwers[count][2];
-    document.querySelector('.answer4').innerHTML = asnwers[count][3];
-
+function helpPeople() {
+    let answer = document.querySelector('.answer');
+    let num = Math.floor(Math.random() * 4);
+    // console.log(num);
+    answer.children[num].style.backgroundColor = 'yellow';
+    document.querySelector('.peopleHelp').style.visibility = 'hidden';
 }
 
+
 setInterval(setTimer, 1000);
+
 function setTimer() {
-    let count = +document.querySelector('.timer').textContent;
-    if (count >= 1) {
-        count--;
-        document.querySelector('.timer').innerHTML = count;
-        // console.log(count)
-    } else {
-        clearInterval(setTimer);
+    if (stop === true) {
+        let countTimer = document.querySelector('.timer').innerHTML;
+        console.log(countTimer);
+        if (countTimer >= 1) {
+            countTimer--;
+            document.querySelector('.timer').innerHTML = countTimer;
+        } else {
+            document.querySelector('.question').innerHTML = 'Упсс ты проиграл =/ и твой выигрыш ' + win;
+            document.querySelector('.start').innerHTML = 'Сыграть еще';
+            lose();
+            clearInterval(setTimer);
+        }
     }
+}
+
+function setStart() {
+    stop = true;
+
+    document.querySelector('.timer').style.visibility = "visible";
+
+    visible('.help');
+
+    document.querySelector('.start').style.visibility = "hidden";
+
+    visible('.answer');
+
+    showQuestions();
 }
 
 

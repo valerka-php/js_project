@@ -3,16 +3,20 @@ div,textarea{
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 15px;
-    width: 250px;
+    width: 450px;
     background-color: #cccc00 ;
+    font-size: 35px;
 }
 
 
 textarea{
-    width: 235px;
+    min-width:400px;
+    max-width: 400px;
+    min-height: 75px;
     background: gainsboro;
     font-size: 25px;
     text-align: center;
+
 }
 
 button{
@@ -30,14 +34,17 @@ button{
 .out{
     margin-top: 25px;
     margin-bottom: 15px;
+
 }
 
 input{
     margin-top: 7px;
     border-color: green;
     border-radius: 15px;
-    width: 75px;
+    width: 100px;
+    height: 35px;
     text-align: center;
+    font-size: 35px;
 }
 
 h1{
