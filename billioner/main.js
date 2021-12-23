@@ -37,13 +37,18 @@ let count = 0;
 let answer = 14;
 let win = 0;
 
+//мой "костыль" без которого таймер не корректно работал
 let stop = false;
 
+
+// здесь скрываються поля до начала игры
 document.querySelector('.answer').style.visibility = "hidden";
 document.querySelector('.table').style.visibility = "hidden";
 document.querySelector('.help').style.visibility = "hidden";
 document.querySelector('.timer').style.visibility = "hidden";
 
+
+//функция которая обнуляет денежную таблицу после проигрыша и начала новой игры
 let clearTable = function () {
     for (i = 13; i > 0; i--) {
         // console.log(i);
@@ -57,6 +62,8 @@ let clearTable = function () {
     }
 }
 
+
+//функция которая показывает вопросы последовательно и обновляет таймер
 let showQuestions = function () {
     document.querySelector('.timer').innerHTML = '30';
     document.querySelector('.question').innerHTML = questions[count];
@@ -67,16 +74,19 @@ let showQuestions = function () {
     document.querySelector('.answer4').innerHTML = asnwers[count][3];
 }
 
+//функция проигрыша , скрывает подсказки и таблицу и также удаляет таймер
 let lose = function () {
     document.querySelector('.table').style.visibility = "hidden";
     document.querySelector('.start').style.visibility = "visible";
     document.querySelector('.timer').innerHTML = '';
 
+    /* скрывает все ответы */
     let children = document.querySelector('.answer').children;
     for (i = 0; i < children.length; i++) {
         children[i].style.visibility = "hidden";
     }
 
+    //скрывает таблицу
     // ###############----------------##################
     let help = document.querySelector('.help').children;
     for (i = 0; i < help.length; i++) {
@@ -85,6 +95,8 @@ let lose = function () {
     //  ###############----------------##################
 }
 
+//фукция которая после проигрыша в случае начале новой игры открывает поля и красит их в белый цвет /
+// / если была использована подсказка то некоторые поля могли бы оставаться желтыми
 let visible = function (selector) {
     document.querySelector('.table').style.visibility = "visible";
     let children = document.querySelector(selector).children;
@@ -94,6 +106,7 @@ let visible = function (selector) {
     }
 }
 
+//функция выиграша
 let winPrize = function () {
     document.querySelector('.start').style.visibility = "hidden";
     document.querySelector('.table').style.visibility = "hidden";
@@ -115,6 +128,7 @@ let winPrize = function () {
 }
 
 
+//здесь хранятся потомки денежной таблицы
 const parent1 = document.querySelector('.answerTable1').children;
 const parent2 = document.querySelector('.answerTable2').children;
 
@@ -151,6 +165,7 @@ function checkAnswer(val) {
 
             showQuestions();
 
+            //а здесь после правильного ответа цвет ячейки денежной краситься в зеленый цвет , в обратном порядке
             parent1[answer - count].style.backgroundColor = 'green';
             parent2[answer - count].style.backgroundColor = 'green';
         } else {
@@ -170,6 +185,7 @@ function checkAnswer(val) {
     }
 }
 
+
 function callFriend() {
     let answer = document.querySelector('.answer');
     let num = Math.floor(Math.random() * 4);
@@ -181,6 +197,9 @@ function callFriend() {
 function fiftyFifty() {
     let correctAnswerNum;
     let text = document.querySelector('.answer').children;
+
+    //цикл который сверяет ответы в таблице правильных ответов с текущими ответами ,
+    // что бы после вызова 50 на 50 , всегда правильный ответ был на столе
     for (i = 0; i < 4; i++) {
         let checkText = text[i].textContent
         // console.log(ty)
@@ -194,6 +213,7 @@ function fiftyFifty() {
     let num1;
     let num2;
 
+    //а в это цикле генерируться случайные два числа но не число ответа с правильным value
     while (num1 === undefined && num2 === undefined) {
         let randNum1 = Math.floor(Math.random() * 4);
         let randNum2 = Math.floor(Math.random() * 4);
@@ -209,15 +229,16 @@ function fiftyFifty() {
     console.log(num1);
     console.log(num2);
 
-    // element.style.visibility = 'hidden';      // Hide
-    // element.style.visibility = 'visible';     // Show
     let tableAnswer = document.querySelector('.answer');
 
+    //здесь после генерации двух чисел они подставлябться и скрываються две ячейки с ответами
     tableAnswer.children[num1].style.visibility = 'hidden';
     tableAnswer.children[num2].style.visibility = 'hidden';
     document.querySelector('.fifty').style.visibility = 'hidden';
 }
 
+
+// отладочная функция что бы получать всегда правильный ответ , так оставил на всякий случай может кому пригодиться , поможет выиграть =)
 function getCorrectAnswer() {
     let text = document.querySelector('.answer').children;
     for (i = 0; i < 4; i++) {
@@ -232,6 +253,7 @@ function getCorrectAnswer() {
 
 }
 
+//тот же рандом по типу звонка другу
 function helpPeople() {
     let answer = document.querySelector('.answer');
     let num = Math.floor(Math.random() * 4);
@@ -241,8 +263,12 @@ function helpPeople() {
 }
 
 
+//устанавливаеться интервал таймера.
+
 setInterval(setTimer, 1000);
 
+//сам таймер который работает по принципу отнятия значения которое храниться в h1 и так же по истечению времени
+//когда будет 0 так же засчитывает проигрыш
 function setTimer() {
     if (stop === true) {
         let countTimer = document.querySelector('.timer').innerHTML;
@@ -259,6 +285,7 @@ function setTimer() {
     }
 }
 
+//функция начала игры скрывает кнопку после клика и так же  открывает все необходимые поля , таблицу вопрос и подсказку
 function setStart() {
     stop = true;
 
